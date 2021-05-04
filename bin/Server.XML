@@ -1,0 +1,1081 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Server</name>
+    </assembly>
+    <members>
+        <member name="M:Server.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:Server.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,Server.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:Server.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:Server.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:Server.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:Server.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Server.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:Server.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:Server.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:Server.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Server.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:Server.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,Server.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,Server.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:Server.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:Server.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(Server.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:Server.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:Server.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},Server.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Server.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleKey.#ctor(Server.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Server.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Server.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,Server.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Server.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:Server.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:Server.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Server.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:Server.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:Server.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:Server.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Server.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:Server.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Server.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="T:Server.Controllers.AuthBase">
+            <summary>
+            Base class for Bio Authentication.
+            </summary>
+        </member>
+        <member name="T:Server.Controllers.AuthController">
+            <summary>
+            Concierge initial handshake
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.AuthController.Get">
+            <summary>
+            Start the authentication procedure 
+            </summary>
+        </member>
+        <member name="T:Server.Controllers.ClientController">
+            <summary>
+            For Concierge Clint to authenticate with the server
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.ClientController.Get">
+            <summary>
+            Clinet verification 
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.ClientController.Put">
+            <summary>
+            Extend Access Key
+            </summary>
+        </member>
+        <member name="T:Server.Controllers.MonitorActionController">
+            <summary>
+            Concierge ICare DND Action URL receiver
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.MonitorActionController.Get(System.String,System.String)">
+            <summary>
+            Example address <![CDATA[http://192.168.0.150/api/ICareAction?action=opendnd&value=$ip]]> 
+            </summary>
+            <param name="action">opendnd or closednd</param>
+            <param name="value">must be $ip</param>
+        </member>
+        <member name="T:Server.Controllers.LogController">
+            <summary>
+            Concierge Logs
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.LogController.Get(System.DateTime,System.DateTime,Server.Models.LogType,System.Int32)">
+            <summary>
+            Reterive Log from server
+            </summary>
+            <param name="from">YYYY-MM-dd : HH:mm:ss</param>
+            <param name="to">YYYY-MM-dd : HH:mm:ss</param>
+            <param name="type"><code>LogType</code></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Server.Controllers.LogController.Get(System.String,System.Int32)">
+            <summary>
+            Reterive Fob Log from server
+            </summary>
+            <param name="FobID"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Server.Controllers.LogController.Post(Server.Models.Log)">
+            <summary>
+            Add a new log to the server
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="T:Server.Controllers.PingController">
+            <summary>
+            Concierge Services Status Report.
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.PingController.Get">
+            <summary>
+            Get a list of all the required local services running on the server.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Server.Controllers.DoorPanelController">
+            <summary>
+            Concierge Doorpanel (A3,C3) Object
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.DoorPanelController.Get">
+            <summary>
+            Get all the DoorPanel from the server.
+            </summary>
+            <returns>A list of DoorPanel if any, otherwise an empty list</returns>
+        </member>
+        <member name="M:Server.Controllers.DoorPanelController.Get(System.String,System.String)">
+            <summary>
+            Get all the DoorPanel from the database which belongs to the Estate and Building.
+            </summary>
+            <param name="estate">Site name, set to 'estate=' if this parameters need omit</param>
+            <param name="building">Building name, set to 'building=' if this parameters need omit</param>
+            <returns>A list of DoorPanel, an empty list will be returned if nothing is found</returns>
+        </member>
+        <member name="M:Server.Controllers.DoorPanelController.Get(System.String)">
+            <summary>
+            Get a DoorPanel based on the object GUID.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+            <returns>DoorOanel object, return null if the ID does not exist</returns>
+        </member>
+        <member name="M:Server.Controllers.DoorPanelController.Post(Server.Models.DoorPanel)">
+            <summary>
+            Create a new DoorPanel object in the server.
+            </summary>
+            <param name="panel">DoorPanel object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.DoorPanelController.Put(Server.Models.DoorPanel)">
+            <summary>
+            Modify the DoorPanel object, except its GUID field.
+            </summary>
+            <param name="panel">DoorPanel object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.DoorPanelController.Delete(System.String)">
+            <summary>
+            Remove the DoorPanel from the server.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+        </member>
+        <member name="T:Server.Controllers.FlatController">
+            <summary>
+            Concierge Location Object, mainly used for Flat / Apartment, can also be apply to a PA speaker.
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.FlatController.Get">
+            <summary>
+            Get all the Flat from the server.
+            </summary>
+            <returns>A list of Flat if any, otherwise an empty list</returns>
+        </member>
+        <member name="M:Server.Controllers.FlatController.Get(System.String,System.String,System.String,System.String)">
+            <summary>
+            Get all the Flat from the database which belongs to the Estate, Building and Floor; in addtion a search filter can be apply to the result.
+            </summary>
+            <param name="estate">Site name, set to 'estate=' if this parameters need omit</param>
+            <param name="building">Building name, set to 'building=' if this parameters need omit</param>
+            <param name="floor">Floor name, set to 'floor=' if this parameters need omit</param>
+            <param name="search">Search value, set to 'search=' if this parameters need omit</param>
+            <returns>A list of Flat, an empty list will be returned if nothing is found</returns>
+        </member>
+        <member name="M:Server.Controllers.FlatController.Get(System.String)">
+            <summary>
+            Get a Flat based on the object GUID.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+            <returns>Flat object, return null if the ID does not exist</returns>
+        </member>
+        <member name="M:Server.Controllers.FlatController.Post(Server.Models.Flat)">
+            <summary>
+            Create a new Flat object in the server.
+            </summary>
+            <param name="flat">DoorPanel object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.FlatController.Put(Server.Models.Flat)">
+            <summary>
+            Modify the Flat object, except its GUID field.
+            </summary>
+            <param name="flat">Flat object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.FlatController.Delete(System.String)">
+            <summary>
+            Remove the Flat from the server.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+        </member>
+        <member name="T:Server.Controllers.IndoorMonitorController">
+            <summary>
+            Concierge Indoor Monitor / Unit: G9, I2, ICare, Audio Handset
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.IndoorMonitorController.Get">
+            <summary>
+            Get all the IndoorMonitor from the server.
+            </summary>
+            <returns>A list of IndoorMonitor if any, otherwise an empty list</returns>
+        </member>
+        <member name="M:Server.Controllers.IndoorMonitorController.Get(System.String,System.String,System.String)">
+            <summary>
+            Get all the IndoorMonitor from the database which belongs to the Estate, Building and Floor.
+            </summary>
+            <param name="estate">Site name, set to 'estate=' if this parameters need omit</param>
+            <param name="building">Building name, set to 'building=' if this parameters need omit</param>
+            <param name="floor">Floor name, set to 'floor=' if this parameters need omit</param>
+            <returns>A list of IndoorMonitor, an empty list will be returned if nothing is found</returns>
+        </member>
+        <member name="M:Server.Controllers.IndoorMonitorController.Get(System.String)">
+            <summary>
+            Get a IndoorMonitor based on the object GUID.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+            <returns>IndoorMonitor object, return null if the ID does not exist</returns>
+        </member>
+        <member name="M:Server.Controllers.IndoorMonitorController.Post(Server.Models.IndoorMonitor)">
+            <summary>
+            Create a new IndoorMonitor object in the server.
+            </summary>
+            <param name="monitor">IndoorMonitor object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.IndoorMonitorController.Put(Server.Models.IndoorMonitor)">
+            <summary>
+            Modify the IndoorMonitor object, except its GUID and FlatGUID field.
+            </summary>
+            <param name="monitor">IndoorMonitor object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.IndoorMonitorController.Delete(System.String)">
+            <summary>
+            Remove the IndoorMonitor from the server.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+        </member>
+        <member name="T:Server.Controllers.MessagingGroupController">
+            <summary>
+            Concierge Group: consists of Resident and Flat; mainly used for sending mesaages, can be also used to make Group / Panging Calls.
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.MessagingGroupController.Get">
+            <summary>
+            Get all the Group from the server.
+            </summary>
+            <returns>A list of Group if any, otherwise an empty list</returns>
+        </member>
+        <member name="M:Server.Controllers.MessagingGroupController.Get(System.String)">
+            <summary>
+            Get a Group based on the object GUID.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+            <returns>Group object, return null if the ID does not exist</returns>
+        </member>
+        <member name="M:Server.Controllers.MessagingGroupController.Post(Server.Models.MessagingGroup)">
+            <summary>
+            Create a new DoorPanel object in the server.
+            </summary>
+            <param name="group">DoorPanel object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.MessagingGroupController.Put(Server.Models.MessagingGroup)">
+            <summary>
+            Modify the Group object, except its GUID field.
+            </summary>
+            <param name="group">Group object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.MessagingGroupController.Delete(System.String)">
+            <summary>
+            Remove the Group from the server.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+        </member>
+        <member name="M:Server.Controllers.UserAdminController.Get">
+            <summary>
+            For UserAdmin to login to the concierge client
+            </summary>
+            <returns>UserAdmin will be return when success, null otherwise</returns>
+        </member>
+        <member name="T:Server.Controllers.UserResidentController">
+            <summary>
+            Concierge Resident
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.UserResidentController.Get">
+            <summary>
+            Get all the Resident from the server.
+            </summary>
+            <returns>A list of Resident if any, otherwise an empty list</returns>
+        </member>
+        <member name="M:Server.Controllers.UserResidentController.Get(System.String,System.String,System.String,System.String)">
+            <summary>
+            Get all the Resident from the database which belongs to the Estate, Building and Floor; in addtion a search filter can be apply to the result.
+            </summary>
+            <param name="estate">Site name, set to 'estate=' if this parameters need omit</param>
+            <param name="building">Building name, set to 'building=' if this parameters need omit</param>
+            <param name="floor">Floor name, set to 'floor=' if this parameters need omit</param>
+            <param name="search">Search value, set to 'search=' if this parameters need omit</param>
+            <returns>A list of Resident, an empty list will be returned if nothing is found</returns>
+        </member>
+        <member name="M:Server.Controllers.UserResidentController.Get(System.String)">
+            <summary>
+            Get a Resident based on the object GUID.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+            <returns>Resident object, return null if the ID does not exist</returns>
+        </member>
+        <member name="M:Server.Controllers.UserResidentController.Post(Server.Models.UserResident)">
+            <summary>
+            Create a new Resident object in the server.
+            </summary>
+            <param name="resident">Resident object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.UserResidentController.Put(Server.Models.UserResident)">
+            <summary>
+            Modify the Resident object, except its GUID field.
+            </summary>
+            <param name="resident">Resident object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.UserResidentController.Delete(System.String)">
+            <summary>
+            Remove the Resident from the server.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+        </member>
+        <member name="T:Server.Controllers.UserServiceController">
+            <summary>
+            Concierge Service Personal
+            </summary>
+        </member>
+        <member name="M:Server.Controllers.UserServiceController.Get">
+            <summary>
+            Get all the Service Personal from the server.
+            </summary>
+            <returns>A list of Service Personal if any, otherwise an empty list</returns>
+        </member>
+        <member name="M:Server.Controllers.UserServiceController.Get(System.String)">
+            <summary>
+            Get a Service Personal based on the object GUID.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+            <returns>Service Personal object, return null if the ID does not exist</returns>
+        </member>
+        <member name="M:Server.Controllers.UserServiceController.Post(Server.Models.UserService)">
+            <summary>
+            Create a new Service Personal object in the server.
+            </summary>
+            <param name="service">Service Personal object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.UserServiceController.Put(Server.Models.UserService)">
+            <summary>
+            Modify the Service Personal object, except its GUID field.
+            </summary>
+            <param name="service">Service Personal object with the updated value</param>
+        </member>
+        <member name="M:Server.Controllers.UserServiceController.Delete(System.String)">
+            <summary>
+            Remove the Service Personal from the server.
+            </summary>
+            <param name="ID">String based GUID, for example: 56bd1755-3109-4aac-a06f-69889c66f0da</param>
+        </member>
+        <member name="T:Server.Helper.AESHelper">
+            <summary>
+            A help class for AES encrytion and decryption.
+            </summary>
+        </member>
+        <member name="M:Server.Helper.AESHelper.Encrypt(System.String)">
+            <summary>
+            Encrypt message from string to byte array.
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Server.Helper.AESHelper.Decrypt(System.Byte[])">
+            <summary>
+            Decrypt byte array into string message.
+            <para>Only decrypt byte array that was generated by this class</para>
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Server.Management.ClientManagement">
+            <summary>
+            Manages all the Bio Device
+            </summary>
+        </member>
+        <member name="F:Server.Management.OnetimeCodeManage.EXPIRE_TIME">
+            <summary>
+            Time in minutes for each valid session
+            </summary>
+        </member>
+        <member name="M:Server.Management.OnetimeCodeManage.GenerateCode">
+            <summary>
+            Generate a one time code string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Server.Models.AccessController.SetAlarmA(System.DateTime,System.Boolean)">
+            <summary>
+            Do Not Call Directly, System Event
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:Server.Models.AccessController.SetAlarmB(System.DateTime,System.Boolean)">
+            <summary>
+            Do Not Call Directly, System Event
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:Server.Models.AccessController.GetDoors(System.Int32)">
+            <summary>
+            Get AccessDoor object from this Controller
+            </summary>
+            <param name="Index">start with 0</param>
+            <returns></returns>
+        </member>
+        <member name="M:Server.Models.AccessController.CreateNewFobMemory(Server.Models.Fob)">
+            <summary>
+            for new fobs
+            </summary>
+            <param name="fob"></param>
+        </member>
+        <member name="M:Server.Models.AccessController.LinkFob(Server.Models.Fob)">
+            <summary>
+            for existing data
+            </summary>
+            <param name="fob"></param>
+        </member>
+        <member name="M:Server.Models.AccessDoor.SetDoorEvent(System.DateTime,Server.Models.TEventType)">
+            <summary>
+            Do not use, set state by controller
+            </summary>
+            <param name="type"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Server.Models.AccessDoor.SetDoorOpen(System.DateTime,Server.Models.DoorState)" -->
+        <member name="M:Server.Models.AccessDoor.SetDoorLock(System.DateTime,Server.Models.DoorState)">
+            <summary>
+            only controller can set, do not call this
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:Server.Models.BaseObj">
+            <summary>
+            Base Object used by Concierge to deal local database communction mainly
+            </summary>
+        </member>
+        <member name="P:Server.Models.BaseObj.UUID">
+            <summary>
+            GA Concierge system reference
+            Guid.NewGuid()
+            </summary>
+        </member>
+        <member name="P:Server.Models.BaseObj.Note1">
+            <summary>
+            Addtional information
+            </summary>
+        </member>
+        <member name="P:Server.Models.BaseObj.Note2">
+            <summary>
+            Addtional information
+            </summary>
+        </member>
+        <member name="P:Server.Models.Flat.Name">
+            <summary>
+            Flat number
+            </summary>
+        </member>
+        <member name="P:Server.Models.Flat.Tag">
+            <summary>
+            Nick name for staff to easy remember
+            </summary>
+        </member>
+        <member name="P:Server.Models.Fob.ID">
+            <summary>
+            id of the fob
+            </summary>
+        </member>
+        <member name="P:Server.Models.Fob.Time">
+            <summary>
+            Datetime when it is issued
+            </summary>
+        </member>
+        <member name="P:Server.Models.Fob.TotalUsedCount">
+            <summary>
+            Total count of usage since issued
+            </summary>
+        </member>
+        <member name="P:Server.Models.Log.TimeString">
+            <summary>
+            Human readable time format "dd/MM/yyyy HH:mm:ss"
+            </summary>
+        </member>
+        <member name="M:Server.Models.MessagingGroup.Reset">
+            <summary>
+            remove all the linked user and flat
+            </summary>
+        </member>
+        <member name="P:Server.Models.SipMonitor.Network">
+            <summary>
+            IP address of the monitor
+            </summary>
+        </member>
+        <member name="P:Server.Models.SipMonitor.Timeout">
+            <summary>
+            in seconds
+            </summary>
+        </member>
+        <member name="P:Server.Models.SipMonitor.ConfigUsername">
+            <summary>
+            Web config access
+            </summary>
+        </member>
+        <member name="P:Server.Models.SipMonitor.ConfigPassword">
+            <summary>
+            Web config access
+            </summary>
+        </member>
+        <member name="P:Server.Models.UserAdmin.StaffID">
+            <summary>
+            reference num used by cusotmer/client nothing to do with 
+            </summary>
+        </member>
+        <member name="P:Server.Models.UserBase.PictureUri">
+            <summary>
+            Icon which sotred in the server
+            </summary>
+        </member>
+        <member name="T:Server.Models.WServiceStatus">
+            <summary>
+            Local server running on the server
+            </summary>
+        </member>
+        <member name="P:Server.Models.WServiceStatus.Name">
+            <summary>
+            Name of the service
+            </summary>
+        </member>
+        <member name="P:Server.Models.WServiceStatus.Status">
+            <summary>
+            Status of the service, running or otherwise
+            </summary>
+        </member>
+        <member name="P:Server.Models.WServiceStatus.LastCheck">
+            <summary>
+            The Datetime when the last service status check perform
+            </summary>
+        </member>
+        <member name="T:Server.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Server.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Server.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Server.Properties.Resources.ConciergeConfig">
+             <summary>
+               Looks up a localized string similar to # 
+            Estate = GA Demo Site A,GA Demo Site B,GA Demo Site C 
+            Building = Building A, Building B, Building C
+            Floor = 0,1,2,3,4
+            SIP = 99999,123456
+            
+            # Avaliable Monitor type: General, A3, C3, G9, I2, ICare, Android, AudioHandset
+            
+            Location = GA Demo Site A,Building A,0,Flat 1
+            SIP = 11101,123456
+            Monitor = G9,192.168.0.131,admin,473362,MAC
+            
+            Location = GA Demo Site A,Building A,0,Flat 2
+            SIP = 11102,123456
+            Monitor = G9,192.168.0.132,admin,473362,MAC
+            
+            Location = GA Demo Site A,Building A,0,Flat 3
+            SIP =  [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:Server.Properties.Resources.ICareAutoP">
+             <summary>
+               Looks up a localized string similar to # Push Button - DTMF
+            Config.Account1.SIP.Port = 5060
+            Config.Account1.SIP.Port2 = 5060
+            Config.Account1.SIP.TransType = 0
+            Config.Account1.SIP.ListenPortMin = 5062
+            Config.Account1.SIP.ListenPortMax = 5062
+            
+            Config.Account1.OUTPROXY.Enable = 0
+            Config.Account1.OUTPROXY.Server = 
+            Config.Account1.OUTPROXY.Port = 5060
+            Config.Account1.OUTPROXY.BakServer = 
+            Config.Account1.OUTPROXY.BakPort = 5060
+            Config.Account1.OUTPROXY.DHCPOption = 0
+            
+            Config.Account1.STUN.Enable = 0
+            Config.Account1.STUN.Server = 
+            Con [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:Server.Properties.Resources.SECRET_KEY">
+            <summary>
+              Looks up a localized string similar to QNkHc7roVumDCLpiml3d3tpwYT3dP8dBgRCfp2geS3E2JTNLe43vsHASk76SQf2uL2ct+krgo1jkvbOAF2c3ZhDDFTVYucdjOCxYIePv/3A=.
+            </summary>
+        </member>
+        <member name="P:Server.Properties.Resources.SQL_CONNECTION">
+            <summary>
+              Looks up a localized string similar to /+nbkt2KI88PDZn4oXOIgMB+U5/FatOLYfMd9EOyBeIsp3E0/AHhSpKZHZ9yHghzWso49EsDpIR+JpqT6+FBJ13kRvOlUu6+da58lkdKzv3OSTRpoLvjljQbpahGvhoFmqtvr3ytLF7xWXzwjcZ+YBQamVVfDjeBWKf15y3CYYfo3+E9KQORWSKo0MtuiGKW.
+            </summary>
+        </member>
+    </members>
+</doc>

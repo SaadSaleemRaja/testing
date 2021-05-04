@@ -1,0 +1,205 @@
+﻿@using Server.Models
+
+@{
+    SystemConfig config = ViewBag.Config;
+    Dictionary<string, string> List = ViewBag.List;
+    string ID = ViewBag.ID;
+    int id = 0;
+}
+
+@model Server.Models.UserAdmin
+
+<div class="jumbotron">
+    <h2 class="lead">Installer / Admin:</h2>
+    <div class="row">
+        <div class="col-6">
+            <select class="form-control" id="select_user" name="select_user">
+                <option value=" ">
+                    Please select</string>
+                    @foreach (KeyValuePair<string, string> pair in List)
+                    {
+                    <option value="@pair.Key" @(pair.Key == ID ? "Selected" : "")>@pair.Value</option>
+                    }
+                </select>
+            </div>
+            <div class="col-2">
+                @using (Html.BeginForm("Index", "Users"))
+            {
+                    <input class="hiddenid" type="text" name="input_id" hidden>
+                    <button type="submit" class="btn btn-success col-12">View</button>
+                }
+            </div>
+            <div class="col-2">
+                @using (Html.BeginForm("Remove", "Users"))
+            {
+                    <input type="text" name="input_id" hidden value="@ID">
+                    <button type="submit" class="btn btn-success col-12">Delete</button>
+                }
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-success col-12" data-toggle="modal" data-target="#exampleModal">Create</button>
+            </div>
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col">
+                <h4>User Details:</h4>
+                <div class="panel panel-default">
+                    @using (Html.BeginForm("Update", "Users"))
+                {
+                        <div class="panel-body">
+                            <input type="text" name="input_id" hidden value="@ID">
+                            <label>Title:</label>
+                            @Html.TextBoxFor(Model => Model.Title, new { @class = "form-control col-12", required = "required", placeholder = "title" })
+                            <label>First Name:</label>
+                            @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-control col-12", required = "required", placeholder = "first name" })
+                            <label>Last Name:</label>
+                            @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-control col-12", required = "required", placeholder = "last name" })
+                            <label>Staff ID:</label>
+                            @Html.TextBoxFor(Model => Model.StaffID, new { @class = "form-control col-12", placeholder = "staff ID", type = "number" })
+                            <label>Contact Number:</label>
+                            @Html.TextBoxFor(Model => Model.Phone, new { @class = "form-control col-12", placeholder = "contact number", type = "number" })
+                            <label>Email Address:</label>
+                            @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control col-12", placeholder = "email address", type = "email" })
+                        </div>
+                        <div class="panel-body">
+                            <button type="submit" class="btn btn-success col-4 pull-right">Update</button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col">
+                <h4>Reset Credential:</h4>
+                <div class="panel panel-default">
+                    @using (Html.BeginForm("Reset", "Users"))
+                    {
+                        <div class="panel-body">
+                            <input type="text" name="input_id" hidden value="@ID">
+                            <label for="input_username">User Name:</label>
+                            <input type="text" class="form-control col-12" id="input_username" name="input_username" placeholder="username" required minlength="3">
+                            <label for="input_password">Password:</label>
+                            <input type="password" class="form-control col-12" id="input_password" name="input_password" placeholder="password" required minlength="6">
+                        </div>
+                        <div class="panel-body">
+                            <button type="submit" class="btn btn-success col-4 pull-right">Reset</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        if (!Model.IsInstaller)
+        {
+            <h4>Estate Rights:</h4>
+            <div class="panel panel-default" col-6>
+                @using (Html.BeginForm("UpdateEstate", "Users"))
+                {
+                    <div class="panel-body">
+                        <input type="text" name="input_id" hidden value="@ID">
+                        <select multiple class="form-control" name="input_allowedsite" required>
+                            @foreach (string site in config.GetEstateList())
+                            {
+                                <option @(Model.AllowedEstate.Contains(site) ? "selected" : "")>@site</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="panel-body">
+                        <button type="submit" class="btn btn-success col-4">Update</button>
+                    </div>
+                }
+            </div>
+
+            <h4>Permission Rights:</h4>
+            <input type="text" name="input_id" hidden value="@ID">
+            <div class="panel panel-default">
+                @using (Html.BeginForm("UpdatePermission", "Users"))
+                {
+                    <input type="text" name="input_id" hidden value="@ID">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Permission</th>
+                                    <th scope="col" style="text-align: center;">View</th>
+                                    <th scope="col" style="text-align: center;">Create</th>
+                                    <th scope="col" style="text-align: center;">Update</th>
+                                    <th scope="col" style="text-align: center;">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (KeyValuePair<string, Dictionary<string, bool>> permission in Model.Permissions)
+                                {
+                                    id++;
+                                    <tr>
+                                        <td>@id</td>
+                                        <th scope="row">@Html.Label(permission.Key)</th>
+                                        <td>@Html.CheckBoxFor(Model => Model.Permissions[permission.Key]["VIEW"], new { @class = "form-control" })</td>
+                                        <td>@Html.CheckBoxFor(Model => Model.Permissions[permission.Key]["CREATE"], new { @class = "form-control" })</td>
+                                        <td>@Html.CheckBoxFor(Model => Model.Permissions[permission.Key]["UPDATE"], new { @class = "form-control" })</td>
+                                        <td>@Html.CheckBoxFor(Model => Model.Permissions[permission.Key]["REMOVE"], new { @class = "form-control" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-body">
+                        <button type="submit" class="btn btn-success col-2 pull-right">Update</button>
+                    </div>
+                }
+            </div>
+        }
+    }
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            @using (Html.BeginForm("Create", "Users"))
+            {
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create New User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="input_types">Type:</label>
+                        <select class="form-control col-12" id="input_types" name="input_type" required>
+                            <option>Concierge Installer</option>
+                            <option>Concierge Admin</option>
+                        </select>
+                        <label for="input_usernames">User Name:</label>
+                        <input type="text" class="form-control col-12" id="input_usernames" name="input_username" placeholder="user name" required minlength="3">
+                        <label for="input_passwords">Password:</label>
+                        <input type="password" class="form-control col-12" id="input_passwords" name="input_password" placeholder="password" required minlength="6">
+
+                        <label for="input_titles">Title:</label>
+                        <select class="form-control col-12" id="input_titles" name="input_title" required>
+                            <option>Mr.</option>
+                            <option>Mrs.</option>
+                            <option>Miss.</option>
+                        </select>
+                        <label for="input_firstnames">First Name:</label>
+                        <input type="text" class="form-control col-12" id="input_firstnames" name="input_firstname" placeholder="first name" required>
+                        <label for="input_lastnames">Last Name:</label>
+                        <input type="text" class="form-control col-12" id="input_lastnames" name="input_lastname" placeholder="last name" required>
+                        <label for="input_staffids">Staff ID:</label>
+                        <input type="number" class="form-control col-12" id="input_staffids" name="input_staffid" placeholder="staff id">
+                        <label for="input_phonenums">Contactg Number:</label>
+                        <input type="number" class="form-control col-12" id="input_phonenums" name="input_phonenum" placeholder="contact number">
+                        <label for="input_emails">Email:</label>
+                        <input type="email" class="form-control col-12" id="input_emails" name="input_email" placeholder="email address">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

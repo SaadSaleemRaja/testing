@@ -1,0 +1,56 @@
+﻿@using Server.Models
+
+<h4>Configuration</h4>
+@*
+    <div class="panel panel-default">
+        @using (Html.BeginForm("Export", "Backup"))
+                {
+            <div class="panel-body">
+                <label class="h4">Export:</label>
+                <button type="submit" class="btn btn-success col-2 pull-right">Export</button>
+            </div>
+        }
+        <div class="panel-body">
+            @using (Html.BeginForm("Import", "Backup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                <label class="h4" for="file">Import:</label>
+                <input type="file" class="form-control-file col-12" id="file" name="file">
+                <br />
+                @Html.CheckBox("check_remove", false);
+                <label class="form-check-label" for="check_remove">Overwrite Existing Configuration</label>
+                    <button type="submit" class="btn btn-success col-2 pull-right">Import</button>
+                if (ViewBag.ImportError != null)
+                {
+                    <div class="panel-body">
+                        <pre class="h4 text-danger" for="file">@ViewBag.ImportError</pre>
+                    </div>
+                }
+            }
+            <div class="panel-body">
+                @Html.ActionLink("Sample Configuration File", "Sample", "Backup", new { area = "" }, null)
+            </div>
+        </div>
+    </div>
+*@
+<br>
+<br>
+<h4>Resident Details</h4>
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm("ImportResidentData", "Backup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <label class="h4" for="file_resident">Import:</label>
+            <input type="file" class="form-control-file col-12" id="file_resident" name="file">
+            <br />
+            @Html.CheckBox("check_remove", false);
+            <label class="form-check-label" for="check_remove">Overwrite Existing Data</label>
+            <button type="submit" class="btn btn-success col-2 pull-right">Import</button>
+            if (ViewBag.ImportError1 != null)
+            {
+                <div class="panel-body">
+                    <pre class="h4 text-danger" for="file">@ViewBag.ImportError1</pre>
+                </div>
+            }
+        }
+    </div>
+</div>

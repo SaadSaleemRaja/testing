@@ -1,0 +1,157 @@
+﻿@using Server.Models
+
+@{
+    SystemConfig config = ViewBag.Config;
+}
+
+@model Server.Models.SystemConfig
+
+<div class="jumbotron">
+    <div class="row">
+        <h4 class="col-sm-10">Estate:@ViewBag.Estate</h4>
+        <h4 class="col-sm-10">Building:@ViewBag.Building</h4>
+        <h4 class="col-sm-10">Floor:@ViewBag.Floor</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        @using (Html.BeginForm("DeleteEstate", "Config"))
+        {
+            <span class="badge badge-success col-12">Existing Estate</span>
+            <select multiple class="form-control col-12" id="select_state" name="input_deleteestate" required>
+                @foreach (string estate in config.GetEstateList())
+                {
+                    <option>@estate</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-success col-12">Delete Estate</button>
+        }
+        <br>
+        <br>
+        @using (Html.BeginForm("AddEstate", "Config"))
+        {
+            <label for="input_newestate">New Estate:</label>
+            <input type="text" class="form-control col-12" id="input_newestate" name="input_newestate" placeholder="estate name" required>
+            <button type="submit" class="btn btn-success col-12">Add Estate</button>
+        }
+    </div>
+
+    <div class="col">
+        @using (Html.BeginForm("DeleteBuilding", "Config"))
+        {
+            <span class="badge badge-success col-12">Existing Building</span>
+            <select multiple class="form-control col-12" id="select_building" name="input_deletebuilding" required>
+                @foreach (string building in config.GetBuildingList())
+                {
+                    <option>@building</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-success col-12">Delete Building</button>
+        }
+        <br>
+        <br>
+        @using (Html.BeginForm("AddBuilding", "Config"))
+        {
+            <label for="input_newbuilding">New Building:</label>
+            <input type="text" class="form-control col-12" id="input_newbuilding" name="input_newbuilding" placeholder="building name" required>
+            <button type="submit" class="btn btn-success col-12">Add Building</button>
+        }
+    </div>
+
+    <div class="col">
+        @using (Html.BeginForm("DeleteFloor", "Config"))
+        {
+            <span class="badge badge-success col-12">Existing Floor</span>
+            <select multiple class="form-control col-12" id="select_floor" name="input_deletefloor" required>
+                @foreach (string floor in config.GetFloorList())
+                {
+                    <option>@floor</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-success col-12">Delete Floor</button>
+        }
+        <br>
+        <br>
+        @using (Html.BeginForm("AddFloor", "Config"))
+        {
+            <label for="input_newfloor">New Floor:</label>
+            <input type="text" class="form-control col-12" id="input_newfloor" name="input_newfloor" placeholder="floor name" required>
+            <button type="submit" class="btn btn-success col-12">Add Floor</button>
+        }
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col">
+        <h4>Concierge Account</h4>
+        <div class="panel panel-default">
+            @using (Html.BeginForm("EditSIPAccount", "Config"))
+            {
+                <div class="panel-body">
+                    <label for="input_csipserver">SIP Server Address:</label>
+                    <input type="text" class="form-control col-12" id="input_csipserver" name="input_csipserver" placeholder="SIP PBX server address" required value="@config.GetConciergeSIPAccount().GetServerIP()">
+                </div>
+                <div class="panel-body">
+                    <label for="input_ccallid">SIP Extension:</label>
+                    <input type="text" class="form-control col-12" id="input_ccallid" name="input_ccallid" placeholder="concierge server address" required value="@config.GetConciergeSIPAccount().GetCallID()">
+                </div>
+                <div class="panel-body">
+                    <label for="input_caccount">Account Username:</label>
+                    <input type="text" class="form-control col-12" id="input_caccount" name="input_caccount" placeholder="SIP PBX server address" required value="@config.GetConciergeSIPAccount().GetUsername()">
+                </div>
+                <div class="panel-body">
+                    <label for="input_cpassword">Account Password:</label>
+                    <input type="password" class="form-control col-12" id="input_cpassword" name="input_cpassword" placeholder="concierge server address" required value="@config.GetConciergeSIPAccount().GetPassword()">
+                </div>
+                <div class="panel-body">
+                    <button type="submit" class="btn btn-success col-4 pull-right">Update</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col">
+        <h4>Server Network Information</h4>
+        <div class="panel panel-default">
+            @using (Html.BeginForm("EditServerIP", "Config"))
+            {
+                <div class="panel-body">
+                    <label for="input_dataserver">IP Address:</label>
+                    <input type="text" class="form-control col-12" id="input_dataserver" name="input_dataserver" placeholder="ip address" required value="@config.ConciergeNetwork.IP" readonly>
+                </div>
+                <div class="panel-body">
+                    <label for="input_datamac">MAC:</label>
+                    <input type="text" class="form-control col-12" id="input_datamac" name="input_datamac" placeholder="mac address" required value="@config.ConciergeNetwork.MAC" readonly>
+                </div>
+                <div class="panel-body">
+                    <label for="input_datantp">NTP:</label>
+                    <input type="text" class="form-control col-12" id="input_datantp" name="input_datantp" placeholder="ntp address" required value="@config.ConciergeNetwork.NTP">
+                </div>
+                <div class="panel-body">
+                    <button type="submit" class="btn btn-success col-4 pull-right">Update</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h4>Additional Setting</h4>
+        <div class="panel panel-default">
+            @using (Html.BeginForm("Additional", "Config"))
+            {
+                <div class="panel-body">
+                    <label class="h4">Auto Recording</label>
+                    @Html.CheckBoxFor(Model => Model.AutoRecording, new { @class = "form-control col-1 pull-left"});
+                </div>
+                <div class="panel-body">
+                    <button type="submit" class="btn btn-success col-2 pull-right">Update</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
